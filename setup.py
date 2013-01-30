@@ -1,26 +1,15 @@
 from setuptools import setup, find_packages
 import sys, os
+from distutils.core import setup
 
-version = '0.1'
-
-setup(name='myapp',
-      version=version,
-      description="desc",
-      long_description="""\
-desclong""",
-      classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
-      keywords='dfd',
-      author='mahmudi',
-      author_email='owais.mahmudi@gmail.com',
-      url='',
-      license='',
-      packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
-      include_package_data=True,
-      zip_safe=False,
-      install_requires=[
-          # -*- Extra requirements: -*-
-      ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
-      )
+setup(
+name='Owais Mahmudi',
+version='0.1',
+author='owaism',
+author_email='owais.mahmudi@gmail.com',
+url='https://github.com/owaismahmudi',
+packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
+scripts=['scripts/getting_data.py'],
+license='GPLv3',
+long_description=open('README.txt').read(),
+)
