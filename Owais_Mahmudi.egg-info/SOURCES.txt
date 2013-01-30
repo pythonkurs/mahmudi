@@ -1,0 +1,8 @@
+README.txt
+setup.py
+Owais_Mahmudi.egg-info/PKG-INFO
+Owais_Mahmudi.egg-info/SOURCES.txt
+Owais_Mahmudi.egg-info/dependency_links.txt
+Owais_Mahmudi.egg-info/top_level.txt
+mahmudi/__init__.py
+scripts/getting_data.py
