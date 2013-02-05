@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from mahmudi import getting_datai
+from mahmudi.session2 import getting_datai
 
 getting_datai()
 
