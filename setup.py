@@ -9,7 +9,7 @@ author='owaism',
 author_email='owais.mahmudi@gmail.com',
 url='https://github.com/owaismahmudi',
 packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
-scripts=['scripts/getting_data.py'],
+scripts=['scripts/getting_data.py', 'scripts/check_repo.py'],
 license='GPLv3',
 long_description=open('README.txt').read(),
 )
