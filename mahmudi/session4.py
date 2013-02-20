@@ -2,40 +2,66 @@ import requests
 import getpass
 import sys, os
 from dateutil import parser
-from pandas import DataFrame
+from pandas import DataFrame,Series
+import json
+from collections import Counter
 
 sys.stdout.write('Github User Name : ')
 userName=sys.stdin.readline().strip()
 password = getpass.getpass('Password : ')
+organization = "pythonkurs" 
 
-users = requests.get("https://api.github.com/orgs/pythonkurs/members", auth=(userName, password))
 repos = requests.get("https://api.github.com/orgs/pythonkurs/repos", auth=(userName, password))
 repositories = repos.json()
 
-print len(repositories)
-
-organization = "pythonkurs" 
-
-
 authors=[]
 commit_msgs=[]
-
-print "Starting: "
+commit_times=[]
+author_list=[]
 
 for repository in repositories:
-    print "Reading repository name: " + repository["name"]
-    
-    commit_messages= requests.get("https://api.github.com/repos/%s/%s/commits" % (organization, repository["name"]))
-    # for each commit
+    authors.append(str(repository["name"]))
+
+for author in authors:
+    commit_messages= requests.get("https://api.github.com/repos/%s/%s/commits" % (organization, author))
     commits=commit_messages.json()
     for commit in commits:
-        if 'commit' not in commit:
+        if not isinstance(commit,dict):  
             continue
-    
-        authors.append(commit["commit"]["author"]["name"])
         commit_msgs.append(commit["commit"]["message"])
+        commit_times.append(parser.parse(commit["commit"]["author"]["date"]))
+        author_list.append(commit["commit"]["author"]["name"])
 
+days=[]
+for time in commit_times:                                                                                              
+    days.append(time.strftime("%A"))
 
-print len(commit_msgs)
-for msg in commit_msgs:
-    print msg
+hours=[]
+for time in commit_times:                                                                                                                                
+    hours.append(time.hour)
+
+records=[]
+
+d=DataFrame({'day' : days, 'hour' : hours},index=days)
+
+mcDay = d.groupby('day')
+mcHour = d.groupby('hour')
+
+peakdaycount=0
+peakday=''
+peakhourcount=0
+peakhour=''
+
+for d in mcDay.groups.iterkeys():
+    mcDayCount= mcDay.count()['day'][d]                                                                                                                           
+    if peakdaycount < mcDayCount:  
+        peakdaycount = mcDayCount                                                                                                                                     
+        peakday = str(d)
+for d in mcHour.groups.iterkeys():    
+    mcHourCount= mcHour.count()['day'][d] 
+    if peakhourcount < mcHourCount:  
+        peakhourcount = mcHourCount                                                                                                                                     
+        peakhour = str(d)
+
+print "Most frequent day for submission is " + peakday + " with " + str(peakdaycount) + " commits "
+print "Most frequent hour for submission is " + peakhour + " with " + str(peakhourcount) + " commits "
