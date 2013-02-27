@@ -1,0 +1,28 @@
+Fraction of outages having the reason REPAIR is 0.666666666667
+Filename: mahmudi/session2.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     4                             @profile
+     5     9.445 MB     0.000 MB   def getting_datai():
+     6     9.906 MB     0.461 MB       file = urllib2.urlopen('http://www.grandcentral.org/developers/data/nyct/nyct_ene.xml')
+     7     9.953 MB     0.047 MB       data = file.read()
+     8                                 #close file because we dont need it anymore:
+     9     9.953 MB     0.000 MB       file.close()
+    10                                 #parse the xml downloaded
+    11    10.492 MB     0.539 MB       doc = untangle.parse(data)
+    12                                 
+    13                                 #retrieve the first xml tag (<tag>data</tag>) that the parser finds with name tagName:
+    14    10.496 MB     0.004 MB       outages = doc.NYCOutages.outage
+    15                                 
+    16    10.496 MB     0.000 MB       total_outages= len(outages)
+    17    10.496 MB     0.000 MB       repair_count=0
+    18    10.523 MB     0.027 MB       for i in range(total_outages):
+    19    10.523 MB     0.000 MB           outage = outages[i]
+    20    10.523 MB     0.000 MB           if outage.reason.cdata == "REPAIR":
+    21    10.523 MB     0.000 MB               repair_count=repair_count+1
+    22                                 
+    23    10.523 MB     0.000 MB       fraction = repair_count/float(total_outages)
+    24    10.527 MB     0.004 MB       print "Fraction of outages having the reason REPAIR is " + str(fraction)
+
+

@@ -1,0 +1,32 @@
+PASS
+Filename: scripts/check_repo.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     4                             @profile
+     5                             
+     6     8.254 MB     0.000 MB   def main():
+     7     8.258 MB     0.004 MB       if len(sys.argv) != 2:
+     8     8.258 MB     0.000 MB           if sys.argv[1].find('check_repo.py') == -1:
+     9                                 	    print "Error: Insufficient arguments!\nExpecting:\n check_repo <path>"
+    10                                 	    sys.exit()
+    11                             
+    12     8.258 MB     0.000 MB       if not os.path.exists(sys.argv[1]):
+    13                                     if sys.argv[1].find('check_repo.py') == -1:
+    14                                 	    print "Error: Invalid path!"
+    15                                 	    sys.exit()
+    16                             
+    17     8.258 MB     0.000 MB       if sys.argv[1].find('check_repo.py') != -1:
+    18     8.258 MB     0.000 MB           thepath = sys.argv[2]
+    19                                 else:
+    20                                     thepath = sys.argv[1]
+    21     8.258 MB     0.000 MB       surname = os.path.basename(thepath)
+    22                             
+    23     8.258 MB     0.000 MB       with ContextManager(thepath):
+    24     8.258 MB     0.000 MB           obj = CourseRepo(surname)
+    25     8.258 MB     0.000 MB           if obj.check():
+    26     8.262 MB     0.004 MB               print "PASS"
+    27                                     else:
+    28                                         print "FAIL"
+
+

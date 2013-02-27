@@ -1,0 +1,29 @@
+PASS
+         23 function calls in 0.000 seconds
+
+   Ordered by: standard name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.000    0.000 __init__.py:1(<module>)
+        1    0.000    0.000    0.000    0.000 check_repo.py:1(<module>)
+        1    0.000    0.000    0.000    0.000 genericpath.py:15(exists)
+        1    0.000    0.000    0.000    0.000 posixpath.py:110(basename)
+        1    0.000    0.000    0.000    0.000 session3.py:1(<module>)
+        1    0.000    0.000    0.000    0.000 session3.py:12(__exit__)
+        1    0.000    0.000    0.000    0.000 session3.py:16(CourseRepo)
+        1    0.000    0.000    0.000    0.000 session3.py:18(__init__)
+        1    0.000    0.000    0.000    0.000 session3.py:21(surname)
+        1    0.000    0.000    0.000    0.000 session3.py:3(ContextManager)
+        1    0.000    0.000    0.000    0.000 session3.py:30(check)
+        1    0.000    0.000    0.000    0.000 session3.py:4(__init__)
+        1    0.000    0.000    0.000    0.000 session3.py:8(__enter__)
+        2    0.000    0.000    0.000    0.000 {len}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 {method 'rfind' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {method 'setter' of 'property' objects}
+        2    0.000    0.000    0.000    0.000 {posix.chdir}
+        1    0.000    0.000    0.000    0.000 {posix.getcwd}
+        1    0.000    0.000    0.000    0.000 {posix.stat}
+        1    0.000    0.000    0.000    0.000 {range}
+
+
