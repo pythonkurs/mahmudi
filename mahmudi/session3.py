@@ -17,18 +17,14 @@ class CourseRepo(object):
     
     def __init__(self, surname):
         self._surname = surname
+        self._required = [".git","setup.py", "README.md","scripts/getting_data.py","scripts/check_repo.py", surname + "/__init__.py", surname + "/session3.py"]
 
     @property
     def surname(self):
         return self._surname
 
-    @surname.setter
-    def required(self, surname):
-        self._required = [".git","setup.py", "README.md","scripts/getting_data.py","scripts/check_repo.py", surname + "/__init__.py", surname + "/session3.py"]
-
-
     def check(self):
-        for i in range(0,len(self.required)):
-            if not os.path.exists(self.required[i]):
+        for i in range(0,len(self._required)):
+            if not os.path.exists(self._required[i]):
                 return False
         return True

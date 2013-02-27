@@ -1,8 +1,6 @@
 import sys, os
 from mahmudi.session3 import CourseRepo, ContextManager
 
-@profile
-
 def main():
     if len(sys.argv) != 2:
         if sys.argv[1].find('check_repo.py') == -1:
@@ -19,7 +17,9 @@ def main():
     else:
         thepath = sys.argv[1]
     surname = os.path.basename(thepath)
-
+    if surname == "":
+        surname = os.path.basename(os.path.dirname(thepath).split()[0])
+ 
     with ContextManager(thepath):
         obj = CourseRepo(surname)
         if obj.check():
