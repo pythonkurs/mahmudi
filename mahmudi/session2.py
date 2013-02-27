@@ -1,5 +1,8 @@
 import urllib2
 import untangle
+import sys
+
+@profile
 
 def getting_datai():
     file = urllib2.urlopen('http://www.grandcentral.org/developers/data/nyct/nyct_ene.xml')
