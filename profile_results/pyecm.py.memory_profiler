@@ -1,0 +1,61 @@
+test
+73
+137
+3169
+98641
+99990001
+3199044596370769
+Filename: ../scripts/pyecm.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+   538                             @profile
+   539                             def parallel_invert(l, n):
+   540                             	'''Inverts all elements of a list modulo some number, using 3(n-1) modular multiplications and one inversion.
+   541                             
+   542    11.406 MB     0.000 MB   Returns the list with all elements inverted modulo 3(n-1).'''
+   543    11.586 MB     0.180 MB   	l_ = l[:]
+   544   190.570 MB   178.984 MB   	for i in xrange(len(l)-1):
+   545   190.570 MB     0.000 MB   		l[i+1] = (l[i] * l[i+1]) % n
+   546                             	
+   547   190.570 MB     0.000 MB   	inv = invert(l[-1], n)
+   548   190.570 MB     0.000 MB   	if inv == 0:
+   549   190.570 MB     0.000 MB   		return gcd(l[-1], n)
+   550    11.406 MB  -179.164 MB   
+   551   190.324 MB   178.918 MB   	for i in xrange(len(l)-1, 0, -1):
+   552   190.324 MB     0.000 MB   		l[i] = (inv * l[i-1]) % n
+   553   190.328 MB     0.004 MB   		inv = (inv * l_[i]) % n
+   554   190.328 MB     0.000 MB   	l[0] = inv
+   555                             
+   556   190.328 MB     0.000 MB   	return l
+
+
+Filename: ../scripts/pyecm.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+   431                             @profile
+   432                             def double(p, n):
+   433                             	'''Doubles each point in the input list. Much like the add function, we take advantage of fast inversion.
+   434                             
+   435    11.406 MB     0.000 MB   Returns the doubled list.'''
+   436    11.527 MB     0.121 MB   	inv = range(len(p))
+   437                             
+   438   190.172 MB   178.645 MB   	for i in xrange(len(p)):
+   439   190.172 MB     0.000 MB   		inv[i] = p[i][1] << 1
+   440                             
+   441   190.328 MB     0.156 MB   	inv = parallel_invert(inv, n)
+   442                             
+   443    11.543 MB  -178.785 MB   	if not isinstance(inv, list):
+   444                             		return inv
+   445                             
+   446   190.508 MB   178.965 MB   	for i in xrange(len(p)):
+   447   190.508 MB     0.000 MB   		x = p[i][0]
+   448   190.508 MB     0.000 MB   		m = (x * x) % n
+   449   190.508 MB     0.000 MB   		m = ((m + m + m + p[i][2]) * inv[i]) % n
+   450   190.508 MB     0.000 MB   		p[i][0] = (m * m - x - x) % n
+   451   190.508 MB     0.000 MB   		p[i][1] = (m * (x - p[i][0]) - p[i][1]) % n
+   452                             
+   453   190.508 MB     0.000 MB   	return p
+
+
