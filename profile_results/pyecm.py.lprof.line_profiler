@@ -1,0 +1,58 @@
+Timer unit: 1e-06 s
+
+File: pyecm.py
+Function: double at line 431
+Total time: 0.519591 s
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   431                                           @profile
+   432                                           def double(p, n):
+   433                                           	'''Doubles each point in the input list. Much like the add function, we take advantage of fast inversion.
+   434                                           
+   435                                           Returns the doubled list.'''
+   436       208          521      2.5      0.1  	inv = range(len(p))
+   437                                           
+   438     19136        13632      0.7      2.6  	for i in xrange(len(p)):
+   439     18928        18765      1.0      3.6  		inv[i] = p[i][1] << 1
+   440                                           
+   441       208       321063   1543.6     61.8  	inv = parallel_invert(inv, n)
+   442                                           
+   443       208          242      1.2      0.0  	if not isinstance(inv, list):
+   444                                           		return inv
+   445                                           
+   446     19136        14708      0.8      2.8  	for i in xrange(len(p)):
+   447     18928        15416      0.8      3.0  		x = p[i][0]
+   448     18928        26884      1.4      5.2  		m = (x * x) % n
+   449     18928        36303      1.9      7.0  		m = ((m + m + m + p[i][2]) * inv[i]) % n
+   450     18928        33413      1.8      6.4  		p[i][0] = (m * m - x - x) % n
+   451     18928        38492      2.0      7.4  		p[i][1] = (m * (x - p[i][0]) - p[i][1]) % n
+   452                                           
+   453       208          152      0.7      0.0  	return p
+
+File: pyecm.py
+Function: parallel_invert at line 538
+Total time: 0.275387 s
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   538                                           @profile
+   539                                           def parallel_invert(l, n):
+   540                                           	'''Inverts all elements of a list modulo some number, using 3(n-1) modular multiplications and one inversion.
+   541                                           
+   542                                           Returns the list with all elements inverted modulo 3(n-1).'''
+   543       230          289      1.3      0.1  	l_ = l[:]
+   544     20930        15237      0.7      5.5  	for i in xrange(len(l)-1):
+   545     20700        34096      1.6     12.4  		l[i+1] = (l[i] * l[i+1]) % n
+   546                                           	
+   547       230       148163    644.2     53.8  	inv = invert(l[-1], n)
+   548       230          234      1.0      0.1  	if inv == 0:
+   549         1          302    302.0      0.1  		return gcd(l[-1], n)
+   550                                           
+   551     20839        15062      0.7      5.5  	for i in xrange(len(l)-1, 0, -1):
+   552     20610        31539      1.5     11.5  		l[i] = (inv * l[i-1]) % n
+   553     20610        30142      1.5     10.9  		inv = (inv * l_[i]) % n
+   554       229          175      0.8      0.1  	l[0] = inv
+   555                                           
+   556       229          148      0.6      0.1  	return l
+
